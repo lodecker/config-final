@@ -46,4 +46,4 @@ sudo sed -i "/recaptcha_private_key/c\$_DVWA[ 'recaptcha_private_key' ] = '6LcUU
 
 #CLICKING THE BUTTON THINGY
 sudo apt-get install curl -y
-curl -b dvwa.cookie --data "create_db=Create+%2F+Reset+Database&user_tokens=$(curl -s -c dvwa.cookie "http://localhost/DVWA/setup.php" | awk -F 'value=' '/user_token/ {print $2}' | cut -d "'" -f2)" "http://localhost/DVWA/setup.php
+curl -b dvwa.cookie --data "create_db=Create+%2F+Reset+Database&user_token=$(curl -s -c dvwa.cookie "http://localhost/DVWA/setup.php" | awk -F 'value=' '/user_token/ {print $2}' | cut -d "'" -f2)" "http://localhost/DVWA/setup.php"
