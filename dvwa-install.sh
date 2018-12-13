@@ -44,3 +44,6 @@ sudo service apache2 restart
 sudo sed -i "/recaptcha_public_key/c\$_DVWA[ 'recaptcha_public_key' ] = '6LcUU0EUAAAAAIuokQ_6cDtgDFg7T97RoNLB-KOw';" /var/www/html/DVWA/config/config.inc.php
 sudo sed -i "/recaptcha_private_key/c\$_DVWA[ 'recaptcha_private_key' ] = '6LcUU0EUAAAAAIUU99jQYFM99jQYFM9NzLj21GRGTVz9cig';" /var/www/html/DVWA/config/config.inc.php
 
+#CLICKING THE BUTTON THINGY
+sudo apt-get install curl -y
+curl -b dvwa.cookie --data "create_db=Create+%2F+Reset+Database&user_tokens=$(curl -s -c dvwa.cookie "http://localhost/DVWA/setup.php" | awk -F 'value=' '/user_token/ {print $2}' | cut -d "'" -f2)" "http://localhost/DVWA/setup.php
