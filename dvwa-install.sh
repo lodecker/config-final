@@ -29,10 +29,20 @@ sudo git clone https://github.com/ethicalhack3r/DVWA.git
 sudo chmod -R 777 /var/www/html/DVWA/
 
 #Configuring DVWA
-cd ~
-git clone https://github.com/lodecker/config-final.git
-mv config-final/php.ini /etc/php/5.6/apache2/php.ini
-sudo rm -r config-final
+mv /var/www/html/DVWA/config/config.inc.php.dist /var/www/html/DVWA/config/config.inc.php
+cd /var/www/html/DVWA
+sudo chgrp www-data hackable/uploads
+sudo chgrp www-data external/phpids/0.6/lib/IDS/tmp/phpids_log.txt
+sudo chgrp www-config
+sudo chmod g+w hackable/uploads
+sudo chmod g+w external/phpids/0.6/lib/IDS/tmp/phpids_log.txt
+sudo chmod g+w config
+
+#Configuring php.inc
+sudo sed 's/^\(allow_url_include\).*/\1 = On/' -i /etc/php/5.6/apache2/php.ini
+sudo service apache2 restart
+sudo sed -i "/recaptcha_public_key/c\$_DVWA[ 'recaptcha_public_key' ] = '6LdH_YAUAAAAAC6ytD3oz9IjwLZddZMpXHjoVNt3';" /var/www/html/DVWA/config/config.inc.php
+sudo sed -i "/recaptcha_private_key/c\$_DVWA[ 'recaptcha_private_key' ] = '6LdHYAUAAAAAJWt-6mP6rwNGSwckRYxD7-d29vy';" /var/www/html/DVWA/config/config.inc.php
 
 #Creating mysql database
 #mysql -u root -pp@ssw0rd
